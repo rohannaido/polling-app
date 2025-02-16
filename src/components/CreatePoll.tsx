@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "./ui/input";
 import { useState } from "react";
 
-export default function CreatePoll() {
+export default function CreatePoll({ handleAddPoll }: { handleAddPoll: () => void }) {
 
     const [question, setQuestion] = useState("");
     const [option1, setOption1] = useState("");
@@ -15,8 +15,12 @@ export default function CreatePoll() {
             method: "POST",
             body: JSON.stringify({ question, options: [option1, option2] }),
         });
+        if (!response.ok) throw new Error("Failed to create poll");
         const poll = await response.json();
-        console.log(poll);
+        setQuestion("");
+        setOption1("");
+        setOption2("");
+        handleAddPoll();
     }
 
     return (

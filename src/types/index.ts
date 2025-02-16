@@ -1,5 +1,9 @@
 import { Poll, Option } from "@prisma/client";
 
 export type PollWithOptions = Poll & {
-    options: Option[];
+    options: Option & {
+        _count: {
+            votes: number;
+        }
+    }[];
 }

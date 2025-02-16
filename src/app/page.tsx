@@ -15,13 +15,27 @@ export default function Home() {
 
   useEffect(() => {
     fetchPolls().then(setPolls);
+
+    const interval = setInterval(() => {
+      fetchPolls().then(polls => {
+        setPolls(polls);
+      });
+    }, 5000);
+
+    return () => clearInterval(interval);
   }, []);
 
+  const handleAddPoll = () => {
+    fetchPolls().then(setPolls);
+  }
+
   return (
-    <div>
-      <CreatePoll />
-      <div className="flex flex-col gap-4 w-[500px]">
-        <h1 className="text-2xl font-bold">Polls</h1>
+    <div className="flex flex-col items-center h-screen">
+      <div className="flex flex-col gap-4 w-[500px] mt-10">
+        <CreatePoll handleAddPoll={handleAddPoll} />
+      </div>
+      <h1 className="text-2xl font-bold mt-10 mb-10">Polls</h1>
+      <div className="flex flex-col gap-4">
         <Polls polls={polls} />
       </div>
     </div>
