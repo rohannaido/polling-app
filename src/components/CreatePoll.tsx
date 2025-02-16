@@ -16,7 +16,7 @@ export default function CreatePoll({ handleAddPoll }: { handleAddPoll: () => voi
             body: JSON.stringify({ question, options: [option1, option2] }),
         });
         if (!response.ok) throw new Error("Failed to create poll");
-        const poll = await response.json();
+        await response.json();
         setQuestion("");
         setOption1("");
         setOption2("");

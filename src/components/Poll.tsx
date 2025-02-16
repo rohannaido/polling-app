@@ -1,4 +1,3 @@
-import { Poll, Option } from "@prisma/client";
 import type { PollWithOptions } from "@/types";
 import { useEffect, useState } from "react";
 
@@ -33,7 +32,7 @@ export default function PollCard({ poll }: { poll: PollWithOptions }) {
         <div className="border p-4 rounded-md w-[300px]">
             <h2 className="text-lg font-bold">{pollData.question}</h2>
             <div className="flex flex-col gap-2">
-                {pollData.options.map((option: any) => (
+                {pollData.options.map((option) => (
                     <button
                         key={option.id}
                         onClick={() => handleVote(option.id)}

@@ -18,32 +18,25 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-    try {
-        const body = await request.json();
+    const body = await request.json();
 
-        if (!body?.question || !Array.isArray(body?.options) || body.options.length < 2) {
-            return NextResponse.json(
-                { error: "Question and at least 2 options are required" },
-                { status: 400 }
-            );
-        }
-
-        const { question, options } = body;
-
-        const poll = await db.poll.create({
-            data: {
-                question,
-                options: {
-                    create: options.map((option: string) => ({ name: option }))
-                }
-            }
-        });
-
-        return NextResponse.json(poll);
-    } catch (error) {
+    if (!body?.question || !Array.isArray(body?.options) || body.options.length < 2) {
         return NextResponse.json(
-            { error: "Invalid request format" },
+            { error: "Question and at least 2 options are required" },
             { status: 400 }
         );
     }
+
+    const { question, options } = body;
+
+    const poll = await db.poll.create({
+        data: {
+            question,
+            options: {
+                create: options.map((option: string) => ({ name: option }))
+            }
+        }
+    });
+
+    return NextResponse.json(poll);
 }
