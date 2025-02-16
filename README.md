@@ -13,21 +13,21 @@ Requirements:
 
 APIs
 POST
-/poll
+/polls
 - create a new poll
 question
 options []
 
-GET /poll
+GET /polls
 list of all polls
 
-GET /poll/:id
+GET /polls/:id
 poll detail
 
-POST /poll/:id/vote
+POST /polls/:id/vote
 vote on a poll
 
-GET /poll/:id/vote
+GET /polls/:id/vote
 get all votes
 
 Database Schema
